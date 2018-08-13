@@ -10,6 +10,9 @@ import UIKit
 
 class VASongsListViewController: UIViewController {
 
+    static let pauseImageName = "pause_new"
+    static let playImageName = "play_new"
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
@@ -43,11 +46,12 @@ class VASongsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.songsTableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         self.title = "My Songs"
         self.dataSource.requestData()
         self.showActivityIndicator()
@@ -76,8 +80,24 @@ extension VASongsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let selfType = type(of: self)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: VASongCell.identifier) as? VASongCell else { return VASongCell() }
         cell.selectionStyle = .none
+        cell.setup()
+        cell.playPauseClickHandler = {
+            if !self.audioPlayerManager.isPlaying {
+                self.audioPlayerManager.startPlayBack(forSongAtIndex: indexPath.row)
+                cell.updatePlayPauseButton(withImageName: selfType.pauseImageName)
+            } else {
+                cell.updatePlayPauseButton(withImageName: selfType.playImageName)
+                self.audioPlayerManager.stop()
+            }
+            
+            self.audioPlayerManager.playBackCompletionHandler = { error in
+                cell.updatePlayPauseButton(withImageName: selfType.playImageName)
+            }
+        }
+        
         let songDataItem = self.dataArray[indexPath.row]
         
         guard let title = songDataItem.title else { return VASongCell() }
@@ -113,8 +133,10 @@ extension VASongsListViewController: VAVADataFetcherDelegate {
 extension VASongsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let songPlayVC = VASongPlayerViewController.loadVC(withSongIndex: indexPath.row) else { return }
-        self.present(songPlayVC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            guard let songPlayVC = VASongPlayerViewController.loadVC(withSongIndex: indexPath.row) else { return }
+            self.present(songPlayVC, animated: true, completion: nil)
+        }
     }
 }
 

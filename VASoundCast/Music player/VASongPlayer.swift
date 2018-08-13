@@ -18,7 +18,6 @@ class VASongPlayer: NSObject {
     
     required init(withPlaybackDelegate delegate: VASongPlayerDelegate) {
         super.init()
-        self.player?.delegate = self
         self.delegate = delegate
     }
     
@@ -32,7 +31,7 @@ class VASongPlayer: NSObject {
     func setupPlayer(withUrl url: URL) {
         do {
             self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: "mp3")
-            
+            self.player?.delegate = self
             self.player?.prepareToPlay()
             self.play()
         } catch {

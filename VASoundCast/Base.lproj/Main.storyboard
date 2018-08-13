@@ -33,27 +33,41 @@
                                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="365" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="NT3-xb-KBd">
                                                     <rect key="frame" x="0.0" y="1" width="375" height="100"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ke-tn-ghc">
-                                                            <rect key="frame" x="20" y="20" width="60" height="60"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ke-tn-ghc">
+                                                            <rect key="frame" x="28" y="28" width="60" height="60"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="FML-Ec-cMD"/>
                                                                 <constraint firstAttribute="height" constant="60" id="IVU-wn-0c1"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KT-Vc-1SS">
-                                                            <rect key="frame" x="96" y="39.5" width="237" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KT-Vc-1SS">
+                                                            <rect key="frame" x="104" y="48" width="180" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQ7-3C-PNS" customClass="VAMusicControlButton" customModule="VASoundCast" customModuleProvider="target">
+                                                            <rect key="frame" x="300" y="27.5" width="45" height="45"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="45" id="98W-gP-YNg"/>
+                                                                <constraint firstAttribute="width" constant="45" id="SeI-90-Tw3"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="imageName" value="play_new"/>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isBorderRequired" value="NO"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="5KT-Vc-1SS" secondAttribute="trailing" constant="20" id="0LK-uv-rKg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="nQ7-3C-PNS" secondAttribute="trailing" constant="30" id="0iV-le-456"/>
+                                                        <constraint firstItem="nQ7-3C-PNS" firstAttribute="leading" secondItem="5KT-Vc-1SS" secondAttribute="trailing" constant="16" id="3e0-WF-2w6"/>
                                                         <constraint firstItem="5KT-Vc-1SS" firstAttribute="centerY" secondItem="9ke-tn-ghc" secondAttribute="centerY" id="7yw-f2-ghB"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="9ke-tn-ghc" secondAttribute="bottom" constant="20" id="ISR-EC-mwt"/>
                                                         <constraint firstItem="9ke-tn-ghc" firstAttribute="top" secondItem="NT3-xb-KBd" secondAttribute="topMargin" constant="20" id="elx-Ji-mZz"/>
                                                         <constraint firstItem="5KT-Vc-1SS" firstAttribute="leading" secondItem="9ke-tn-ghc" secondAttribute="trailing" constant="16" id="hgH-cd-jZ2"/>
+                                                        <constraint firstItem="nQ7-3C-PNS" firstAttribute="centerY" secondItem="NT3-xb-KBd" secondAttribute="centerY" id="kfw-pS-ip7"/>
                                                         <constraint firstItem="9ke-tn-ghc" firstAttribute="leading" secondItem="NT3-xb-KBd" secondAttribute="leadingMargin" constant="20" id="vTo-1V-h7s"/>
                                                     </constraints>
                                                 </view>
@@ -68,6 +82,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="playPauseSongButton" destination="nQ7-3C-PNS" id="8Ht-uX-G0A"/>
                                             <outlet property="songThumbNailImageView" destination="9ke-tn-ghc" id="vL5-rb-S91"/>
                                             <outlet property="songTitleLabel" destination="5KT-Vc-1SS" id="ZEk-Yo-Ks7"/>
                                         </connections>

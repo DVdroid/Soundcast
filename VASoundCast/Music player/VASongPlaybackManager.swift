@@ -10,6 +10,7 @@ import AVKit
 
 final class VASongPlaybackManager: NSObject {
     
+    var isPlaying: Bool = false
     static let sharedInstance: VASongPlaybackManager = {
         let sharedInstance = VASongPlaybackManager()
         sharedInstance.enableBackgroundPlayBack()
@@ -40,6 +41,7 @@ final class VASongPlaybackManager: NSObject {
     }
     
     func startPlayBack(forSongAtIndex index: Int) {
+        self.isPlaying = !self.isPlaying
         self.currentSongIndex = index
         guard let songlist = self.songsList, let songUrl = songlist[index].cachedSongUrl else { return }
         self.player.setupPlayer(withUrl: songUrl)
@@ -51,20 +53,25 @@ final class VASongPlaybackManager: NSObject {
     
     func play() {
         if !self.player.isPlaying {
+            self.isPlaying = !self.isPlaying
             self.player.play()
         }
     }
     
     func pause() {
         if self.player.isPlaying {
+            self.isPlaying = !self.isPlaying
             self.player.pause()
         }
     }
 
     func stop() {
-        self.player.stop()
-        if let playBackCompletionHandler = self.playBackCompletionHandler {
-            playBackCompletionHandler(nil)
+        if self.player.isPlaying {
+            self.isPlaying = !self.isPlaying
+            self.player.stop()
+            if let playBackCompletionHandler = self.playBackCompletionHandler {
+                playBackCompletionHandler(nil)
+            }
         }
     }
     
@@ -81,11 +88,9 @@ final class VASongPlaybackManager: NSObject {
         self.stop()
         self.currentSongIndex = self.currentSongIndex + 1
         if let count = self.songsList?.count, self.currentSongIndex <= (count - 1) {
-            guard let songsList = self.songsList, let songTitle = songsList[self.currentSongIndex].title,
-                let cachedImageUrlAsString = songsList[self.currentSongIndex].thumbnailUrl as NSString?  else { return }
-            guard let cache = self.thumbnailCache, let cachedImage = cache.object(forKey: cachedImageUrlAsString) as UIImage? else { return }
-            handler(songTitle, cachedImage)
-            
+            self.getTrackInfo(forIndex: self.currentSongIndex) { songTitle, cachedImage in
+                handler(songTitle, cachedImage)
+            }
             self.startPlayBack(forSongAtIndex: self.currentSongIndex)
         } else {
             
@@ -99,11 +104,9 @@ final class VASongPlaybackManager: NSObject {
         self.stop()
         self.currentSongIndex = self.currentSongIndex - 1
         if self.currentSongIndex >= 0 {
-            guard let songsList = self.songsList, let songTitle = songsList[self.currentSongIndex].title,
-                let cachedImageUrlAsString = songsList[self.currentSongIndex].thumbnailUrl as NSString?  else { return }
-            guard let cache = self.thumbnailCache, let cachedImage = cache.object(forKey: cachedImageUrlAsString) as UIImage? else { return }
-            handler(songTitle, cachedImage)
-            
+            self.getTrackInfo(forIndex: self.currentSongIndex) { songTitle, cachedImage in
+                handler(songTitle, cachedImage)
+            }
             self.startPlayBack(forSongAtIndex: self.currentSongIndex)
         } else {
             self.currentSongIndex = 0
@@ -114,6 +117,7 @@ final class VASongPlaybackManager: NSObject {
 extension VASongPlaybackManager: VASongPlayerDelegate {
     
     func didFinishPlayBack(_ player: AVAudioPlayer, withError: Error?) {
+        self.isPlaying = !self.isPlaying
         if let playBackCompletionHandler = self.playBackCompletionHandler {
             playBackCompletionHandler(withError)
         }
