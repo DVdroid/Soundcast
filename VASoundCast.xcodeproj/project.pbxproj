@@ -71,6 +71,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D60217CD21218CB2000EFE9F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D648FB202120BE8A0011F489 /* VADataFetcher.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D60217CE21218CCD000EFE9F /* Music player */ = {
+			isa = PBXGroup;
+			children = (
+				D60217C521212F30000EFE9F /* VASongPlaybackManager.swift */,
+				D61D627F212011F600051CC8 /* VASongPlayer.swift */,
+			);
+			path = "Music player";
+			sourceTree = "<group>";
+		};
 		D6F7379C2120BD1300B2A6F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,12 +136,11 @@
 			isa = PBXGroup;
 			children = (
 				D6FFC379211B765800D49A20 /* AppDelegate.swift */,
+				D60217CE21218CCD000EFE9F /* Music player */,
+				D60217CD21218CB2000EFE9F /* Network */,
 				D6F7379E2120BD4E00B2A6F4 /* Controller */,
 				D6F7379D2120BD1E00B2A6F4 /* Model */,
 				D6F7379C2120BD1300B2A6F4 /* View */,
-				D648FB202120BE8A0011F489 /* VADataFetcher.swift */,
-				D60217C521212F30000EFE9F /* VASongPlaybackManager.swift */,
-				D61D627F212011F600051CC8 /* VASongPlayer.swift */,
 				D6FFC37D211B765800D49A20 /* Main.storyboard */,
 				D6FFC380211B765D00D49A20 /* Assets.xcassets */,
 				D6FFC382211B765D00D49A20 /* LaunchScreen.storyboard */,
