@@ -1,0 +1,6 @@
+framework module Pods_VASoundCast {
+  umbrella header "Pods-VASoundCast-umbrella.h"
+
+  export *
+  module * { export * }
+}
