@@ -11,7 +11,7 @@ import AVFoundation
 protocol VASongPlayerDelegate: class {
     
     func didFinishPlayBack(_ player: AVAudioPlayer, withError: Error?)
-    func playBackInProgress(withCurrentDuration durationDone: String, totalDurationleft durationLeft: String)
+    func playBackInProgress(forPlayer player: AVAudioPlayer)
 }
 
 class VASongPlayer: NSObject {
@@ -61,8 +61,7 @@ class VASongPlayer: NSObject {
     
     @objc func updateAudioProgressView() {
         if self.isPlaying, let player = self.player {
-            self.delegate?.playBackInProgress(withCurrentDuration: String(format: "%.2f",player.currentTime),
-                                              totalDurationleft: String(format: "%.2f",(player.duration - player.currentTime)))
+            self.delegate?.playBackInProgress(forPlayer: player)
         }
     }
     

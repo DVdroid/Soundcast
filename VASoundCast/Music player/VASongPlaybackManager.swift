@@ -27,7 +27,9 @@ final class VASongPlaybackManager: NSObject {
     
     private var currentSongIndex: Int = 0
     var playBackCompletionHandler:((Error?)->())?
-    var playbackProgressTrackingnHandler:((String, String)->())?
+    var playbackProgressTrackingnHandler:((Float)->())?
+    var playbackTimeHandler:((String, String)->())?
+    
     
     var songsList: [VASongDataModelItem]?
     var thumbnailCache: NSCache<NSString, UIImage>?
@@ -123,10 +125,24 @@ extension VASongPlaybackManager: VASongPlayerDelegate {
         }
     }
     
-    func playBackInProgress(withCurrentDuration durationDone: String,
-                            totalDurationleft durationLeft: String) {
+    func playBackInProgress(forPlayer player: AVAudioPlayer) {
+        
         if let playbackProgressTrackingnHandler = self.playbackProgressTrackingnHandler {
-            playbackProgressTrackingnHandler(durationDone, durationLeft)
+            playbackProgressTrackingnHandler(Float(player.currentTime / player.duration))
+        }
+    
+        if let playbackTimeHandler = self.playbackTimeHandler {
+            
+            let currentTime = Int(player.currentTime)
+            let currentMinutes = currentTime / 60
+            let currentSeconds = currentTime - currentMinutes * 60
+            
+            let durationTime = Int(player.duration)
+            let durationMinutes = durationTime / 60
+            let durationSeconds = durationTime - durationMinutes * 60
+            
+            playbackTimeHandler(String(format: "%02d:%02d", currentMinutes,currentSeconds),
+                                String(format: "%02d:%02d", durationMinutes,durationSeconds))
         }
     }
 }

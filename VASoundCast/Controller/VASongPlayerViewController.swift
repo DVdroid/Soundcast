@@ -59,14 +59,17 @@ class VASongPlayerViewController: UIViewController {
         self.audioPlayerManager.playBackCompletionHandler = { error in
             let selfType = type(of: self)
             self.playPauseSongButton.imageName = selfType.playImageName
+            self.currentDurationLabel.text = self.totalDurationLabel.text
+            self.progressView.setProgress(1.0, animated: true)
         }
         
-        self.audioPlayerManager.playbackProgressTrackingnHandler = { durationDone , durationLeft in
+        self.audioPlayerManager.playbackProgressTrackingnHandler = { trackingProgress in
+            self.progressView.setProgress(trackingProgress, animated: true)
+        }
+        
+        self.audioPlayerManager.playbackTimeHandler = {  durationDone , totalDuration in
             self.currentDurationLabel.text = durationDone
-            self.totalDurationLabel.text = durationLeft
-            if let durationDoneFloat = Float(durationDone), let durationLeftFloat = Float(durationLeft) {
-                self.progressView.setProgress((durationDoneFloat / durationLeftFloat), animated: true)
-            }
+            self.totalDurationLabel.text = totalDuration
         }
         
         self.audioPlayerManager.getTrackInfo(forIndex: songIndex) { [weak self](songTitle, thumbnailImage) in
