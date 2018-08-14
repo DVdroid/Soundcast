@@ -11,6 +11,8 @@
 		D61D6280212011F600051CC8 /* VASongPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61D627F212011F600051CC8 /* VASongPlayer.swift */; };
 		D648FB212120BE8A0011F489 /* VADataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D648FB202120BE8A0011F489 /* VADataFetcher.swift */; };
 		D656DE1E211F7F7800B131C1 /* VASongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656DE1D211F7F7800B131C1 /* VASongPlayerViewController.swift */; };
+		D676FBEB212367AC00F4277B /* VASoundCastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D676FBEA212367AC00F4277B /* VASoundCastTests.swift */; };
+		D676FBF32123681900F4277B /* VASongDataModelItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D676FBF22123681900F4277B /* VASongDataModelItemTests.swift */; };
 		D6F7379B2120902600B2A6F4 /* VAMusicControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F7379A2120902600B2A6F4 /* VAMusicControlButton.swift */; };
 		D6FFC37A211B765800D49A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FFC379211B765800D49A20 /* AppDelegate.swift */; };
 		D6FFC37C211B765800D49A20 /* VASongsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FFC37B211B765800D49A20 /* VASongsListViewController.swift */; };
@@ -22,6 +24,16 @@
 		F9ECB32D00B66E2A34394AA3 /* Pods_VASoundCast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8E3FF01A60822791179CEF /* Pods_VASoundCast.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D676FBED212367AC00F4277B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D6FFC36E211B765800D49A20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D6FFC375211B765800D49A20;
+			remoteInfo = VASoundCast;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		80101FD497F4A362F7772C75 /* Pods-VASoundCast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VASoundCast.release.xcconfig"; path = "Pods/Target Support Files/Pods-VASoundCast/Pods-VASoundCast.release.xcconfig"; sourceTree = "<group>"; };
 		A0199E22623FF57356E3E5B3 /* Pods-VASoundCast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VASoundCast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VASoundCast/Pods-VASoundCast.debug.xcconfig"; sourceTree = "<group>"; };
@@ -30,6 +42,10 @@
 		D61D627F212011F600051CC8 /* VASongPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASongPlayer.swift; sourceTree = "<group>"; };
 		D648FB202120BE8A0011F489 /* VADataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VADataFetcher.swift; sourceTree = "<group>"; };
 		D656DE1D211F7F7800B131C1 /* VASongPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASongPlayerViewController.swift; sourceTree = "<group>"; };
+		D676FBE8212367AC00F4277B /* VASoundCastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VASoundCastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D676FBEA212367AC00F4277B /* VASoundCastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASoundCastTests.swift; sourceTree = "<group>"; };
+		D676FBEC212367AC00F4277B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D676FBF22123681900F4277B /* VASongDataModelItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASongDataModelItemTests.swift; sourceTree = "<group>"; };
 		D6F7379A2120902600B2A6F4 /* VAMusicControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAMusicControlButton.swift; sourceTree = "<group>"; };
 		D6FFC376211B765800D49A20 /* VASoundCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VASoundCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6FFC379211B765800D49A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +59,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D676FBE5212367AC00F4277B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6FFC373211B765800D49A20 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,6 +111,16 @@
 			path = "Music player";
 			sourceTree = "<group>";
 		};
+		D676FBE9212367AC00F4277B /* VASoundCastTests */ = {
+			isa = PBXGroup;
+			children = (
+				D676FBEA212367AC00F4277B /* VASoundCastTests.swift */,
+				D676FBEC212367AC00F4277B /* Info.plist */,
+				D676FBF22123681900F4277B /* VASongDataModelItemTests.swift */,
+			);
+			path = VASoundCastTests;
+			sourceTree = "<group>";
+		};
 		D6F7379C2120BD1300B2A6F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				D6FFC378211B765800D49A20 /* VASoundCast */,
+				D676FBE9212367AC00F4277B /* VASoundCastTests */,
 				D6FFC377211B765800D49A20 /* Products */,
 				9EAE14F413D6E650C2069F06 /* Pods */,
 				75F4EE4D7CD33DC64206F2CE /* Frameworks */,
@@ -128,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				D6FFC376211B765800D49A20 /* VASoundCast.app */,
+				D676FBE8212367AC00F4277B /* VASoundCastTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,6 +187,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D676FBE7212367AC00F4277B /* VASoundCastTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D676FBF1212367AD00F4277B /* Build configuration list for PBXNativeTarget "VASoundCastTests" */;
+			buildPhases = (
+				D676FBE4212367AC00F4277B /* Sources */,
+				D676FBE5212367AC00F4277B /* Frameworks */,
+				D676FBE6212367AC00F4277B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D676FBEE212367AC00F4277B /* PBXTargetDependency */,
+			);
+			name = VASoundCastTests;
+			productName = VASoundCastTests;
+			productReference = D676FBE8212367AC00F4277B /* VASoundCastTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D6FFC375211B765800D49A20 /* VASoundCast */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6FFC388211B765D00D49A20 /* Build configuration list for PBXNativeTarget "VASoundCast" */;
@@ -177,10 +230,14 @@
 		D6FFC36E211B765800D49A20 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Vikash Anand";
 				TargetAttributes = {
+					D676FBE7212367AC00F4277B = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = D6FFC375211B765800D49A20;
+					};
 					D6FFC375211B765800D49A20 = {
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
@@ -205,11 +262,19 @@
 			projectRoot = "";
 			targets = (
 				D6FFC375211B765800D49A20 /* VASoundCast */,
+				D676FBE7212367AC00F4277B /* VASoundCastTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D676FBE6212367AC00F4277B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6FFC374211B765800D49A20 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +327,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D676FBE4212367AC00F4277B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D676FBF32123681900F4277B /* VASongDataModelItemTests.swift in Sources */,
+				D676FBEB212367AC00F4277B /* VASoundCastTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6FFC372211B765800D49A20 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -279,6 +353,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D676FBEE212367AC00F4277B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D6FFC375211B765800D49A20 /* VASoundCast */;
+			targetProxy = D676FBED212367AC00F4277B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D6FFC37D211B765800D49A20 /* Main.storyboard */ = {
@@ -300,6 +382,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D676FBEF212367AC00F4277B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B6LN4XWA2V;
+				INFOPLIST_FILE = VASoundCastTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VA.VASoundCastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VASoundCast.app/VASoundCast";
+			};
+			name = Debug;
+		};
+		D676FBF0212367AC00F4277B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B6LN4XWA2V;
+				INFOPLIST_FILE = VASoundCastTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.VA.VASoundCastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VASoundCast.app/VASoundCast";
+			};
+			name = Release;
+		};
 		D6FFC386211B765D00D49A20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -455,6 +580,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D676FBF1212367AD00F4277B /* Build configuration list for PBXNativeTarget "VASoundCastTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D676FBEF212367AC00F4277B /* Debug */,
+				D676FBF0212367AC00F4277B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D6FFC371211B765800D49A20 /* Build configuration list for PBXProject "VASoundCast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -14,7 +14,6 @@ struct VASongDataModelItem {
     private static let songTitle = "title"
     private static let songUrl = "link"
     private static let songThumbNailUrl = "thumbnail"
-    //private static let thumbNail = "thumbnail"
     private static let cachedSongUrl = "cachedSongUrl"
     
     let id: Int?
