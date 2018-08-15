@@ -127,6 +127,7 @@ class VASongPlayerViewController: UIViewController {
                 let selfType = type(of: self)
                 self.songTitleLabel.text = songTitle
                 self.thumbnailImageView.image = thumnailImage
+                self.applyCustomBackgroundColor()
                 self.playPauseSongButton.imageName = selfType.pauseImageName
                 
                 if !playbackStatus {
@@ -140,6 +141,7 @@ class VASongPlayerViewController: UIViewController {
                 let selfType = type(of: self)
                 self.songTitleLabel.text = songTitle
                 self.thumbnailImageView.image = thumnailImage
+                self.applyCustomBackgroundColor()
                 self.playPauseSongButton.imageName = selfType.pauseImageName
                 
                 if !playbackStatus {
