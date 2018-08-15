@@ -22,20 +22,14 @@ struct VASongDataModelItem {
     let thumbnailUrl: String?
     let cachedSongUrl: URL?
     
-    init?(withData data: [String: Any]) {
+    init(withData data: [String: Any]) {
         
         let typeSelf = type(of: self)
-        guard let id = data[typeSelf.songIdentifier],
-            let title = data[typeSelf.songTitle],
-            let url = data[typeSelf.songUrl],
-            let thumbnailUrl = data[typeSelf.songThumbNailUrl],
-            let cachedSongUrl = data[typeSelf.cachedSongUrl] else { return nil }
-        
-        self.id = id as? Int
-        self.title = title as? String
-        self.url = url as? String
-        self.thumbnailUrl = thumbnailUrl as? String
-        self.cachedSongUrl = cachedSongUrl as? URL
+        self.id = data[typeSelf.songIdentifier] as? Int
+        self.title = data[typeSelf.songTitle] as? String
+        self.url = data[typeSelf.songUrl] as? String
+        self.thumbnailUrl = data[typeSelf.songThumbNailUrl] as? String
+        self.cachedSongUrl = data[typeSelf.cachedSongUrl] as? URL
     }
 }
 

@@ -44,10 +44,13 @@ class VADataFetcher {
     private func recalculateCachedData() {
         for songDataItem in self.songsList {
             
-            guard let thumbNailImageUrl = songDataItem.thumbnailUrl as NSString? else { return }
-            self.getThumbnail(forUrl: thumbNailImageUrl as String, withCompletionHandler: { image in
-                self.imageCache.setObject(image, forKey: thumbNailImageUrl)
-            })
+            if let thumbNailImageUrl = songDataItem.thumbnailUrl as NSString? {
+                self.getThumbnail(forUrl: thumbNailImageUrl as String, withCompletionHandler: { image in
+                    if let thumbnailImage = image {
+                         self.imageCache.setObject(thumbnailImage, forKey: thumbNailImageUrl)
+                    }
+                })
+            }
         }
     }
     
@@ -76,30 +79,43 @@ class VADataFetcher {
         
          for (index,var songsInfo) in response.enumerated() {
             
-            guard let thumbNailImageUrl = songsInfo["thumbnail"] as? String else { return }
-            self.getThumbnail(forUrl: thumbNailImageUrl as String, withCompletionHandler: { _ in
-            })
+            if let thumbNailImageUrl = songsInfo["thumbnail"] as? String {
+                self.getThumbnail(forUrl: thumbNailImageUrl as String, withCompletionHandler: { _ in
+                })
+            }
             
-            guard let songUrl = songsInfo["link"] as? String else { return }
-            self.downloadSong(forUrl: songUrl) { destinationUrl in
-                songsInfo["cachedSongUrl"] = destinationUrl
-                guard let songsDataModelItem = VASongDataModelItem(withData: songsInfo) else { return }
-                self.songsList.append(songsDataModelItem)
-                
-                if index == (self.songsList.count - 1) {
-                    self.delegate?.didReceive(response: self.songsList, andThumnailCache: self.imageCache)
+            if let songUrl = songsInfo["link"] as? String {
+                self.downloadSong(forUrl: songUrl) { destinationUrl in
+                    
+                    if let url = destinationUrl {
+                        songsInfo["cachedSongUrl"] = url
+                    }
+                    
+                    let songsDataModelItem = VASongDataModelItem(withData: songsInfo)
+                    self.songsList.append(songsDataModelItem)
+                    
+                    if index == (self.songsList.count - 1) {
+                        self.delegate?.didReceive(response: self.songsList, andThumnailCache: self.imageCache)
+                    }
                 }
             }
         }
     }
     
-    private func downloadSong(forUrl urlString: String, withCompletionHandler handler: @escaping(URL)->()) {
-        guard let url = URL(string: urlString) else { return }
+    private func downloadSong(forUrl urlString: String, withCompletionHandler handler: @escaping(URL?)->()) {
+        guard let url = URL(string: urlString) else {
+            handler(nil)
+            return
+        }
         self.storeFile(wthUrl: url, withCompletionHandler: handler)
     }
     
-    private func storeFile(wthUrl fileUrl: URL, withCompletionHandler handler: @escaping(URL)->()) {
-        guard let documentDirectoryPath = self.documentDirectoryUrl() else { return }
+    private func storeFile(wthUrl fileUrl: URL, withCompletionHandler handler: @escaping(URL?)->()) {
+        guard let documentDirectoryPath = self.documentDirectoryUrl() else {
+            handler(nil)
+            return
+        }
+        
         let destinationPathUrl = documentDirectoryPath.appendingPathComponent(fileUrl.lastPathComponent)
         if FileManager.default.fileExists(atPath: destinationPathUrl.path) {
             handler(destinationPathUrl)
@@ -109,11 +125,15 @@ class VADataFetcher {
                 return (destinationPathUrl, [.removePreviousFile])
             }).responseData { responseData in
                 
-                guard let destinationPathAsString = responseData.destinationURL else { return }
+                guard let destinationPathAsString = responseData.destinationURL else {
+                    handler(nil)
+                    return
+                }
                 do {
                     try FileManager.default.moveItem(at: destinationPathAsString, to: destinationPathUrl)
                     handler(destinationPathUrl)
                 } catch {
+                    handler(nil)
                     print(error)
                 }
             }
@@ -125,15 +145,21 @@ class VADataFetcher {
         return documentDirectoryPath
     }
     
-    func getThumbnail(forUrl urlString: String, withCompletionHandler handler:@escaping (UIImage)->()) {
+    func getThumbnail(forUrl urlString: String, withCompletionHandler handler:@escaping (UIImage?)->()) {
         
-        guard let urlKey = urlString as NSString? else { return }
+        guard let urlKey = urlString as NSString? else {
+            handler(nil)
+            return
+        }
         if let cachedImage = self.imageCache.object(forKey: urlKey) {
             handler(cachedImage)
         } else {
             
             Alamofire.request(urlString).response{ response in
-                guard let imageData = response.data, let image = UIImage(data: imageData) else { return }
+                guard let imageData = response.data, let image = UIImage(data: imageData) else {
+                    handler(nil)
+                    return
+                }
                 self.imageCache.setObject(image, forKey: urlKey)
                 handler(image)
             }

@@ -42,15 +42,23 @@ final class VASongPlaybackManager: NSObject {
         }
     }
     
-    func startPlayBack(forSongAtIndex index: Int) {
+    func startPlayBack(forSongAtIndex index: Int, withCompletionHandler handler:(Bool)->()) {
         self.isPlaying = !self.isPlaying
         self.currentSongIndex = index
-        guard let songlist = self.songsList, let songUrl = songlist[index].cachedSongUrl else { return }
-        self.player.setupPlayer(withUrl: songUrl)
+        guard let songlist = self.songsList, let songUrl = songlist[index].cachedSongUrl else {
+            handler(false)
+            return
+        }
+        
+        self.player.setupPlayer(withUrl: songUrl, withCompletionHandler: { playbackStatusFlag in
+            handler(playbackStatusFlag)
+        })
     }
     
-    func startPlayBack() {
-        self.startPlayBack(forSongAtIndex: self.currentSongIndex)
+    func startPlayBack(withCompletionHandler handler:(Bool)->()) {
+        self.startPlayBack(forSongAtIndex: self.currentSongIndex, withCompletionHandler: { playbackStatusFlag in
+            handler(playbackStatusFlag)
+        })
     }
     
     func play() {
@@ -86,14 +94,18 @@ final class VASongPlaybackManager: NSObject {
         handler(songTitle, cachedImage)
     }
     
-    func nextTrack(withCompletionHandler handler:(String,UIImage)->()) {
+    func nextTrack(withCompletionHandler handler:@escaping (String, UIImage, Bool)->()) {
         self.stop()
         self.currentSongIndex = self.currentSongIndex + 1
         if let count = self.songsList?.count, self.currentSongIndex <= (count - 1) {
             self.getTrackInfo(forIndex: self.currentSongIndex) { songTitle, cachedImage in
-                handler(songTitle, cachedImage)
+                
+                self.startPlayBack(forSongAtIndex: self.currentSongIndex,
+                                   withCompletionHandler: { playbackStatusFlag in
+                    handler(songTitle, cachedImage, playbackStatusFlag)
+                })
             }
-            self.startPlayBack(forSongAtIndex: self.currentSongIndex)
+            
         } else {
             
             if let count = self.songsList?.count {
@@ -102,14 +114,17 @@ final class VASongPlaybackManager: NSObject {
         }
     }
     
-    func previousTrack(withCompletionHandler handler:(String, UIImage)->()) {
+    func previousTrack(withCompletionHandler handler:@escaping (String, UIImage, Bool)->()) {
         self.stop()
         self.currentSongIndex = self.currentSongIndex - 1
         if self.currentSongIndex >= 0 {
             self.getTrackInfo(forIndex: self.currentSongIndex) { songTitle, cachedImage in
-                handler(songTitle, cachedImage)
+                
+                self.startPlayBack(forSongAtIndex: self.currentSongIndex,
+                                   withCompletionHandler: { playbackStatusFlag in
+                                    handler(songTitle, cachedImage, playbackStatusFlag)
+                })
             }
-            self.startPlayBack(forSongAtIndex: self.currentSongIndex)
         } else {
             self.currentSongIndex = 0
         }

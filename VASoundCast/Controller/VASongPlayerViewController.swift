@@ -48,6 +48,10 @@ class VASongPlayerViewController: UIViewController {
         self.playPauseSongButton.imageName = selfType.pauseImageName
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     private func configurePlayerManager() {
         
         guard let songIndex = self.songIndex else { return }
@@ -82,7 +86,12 @@ class VASongPlayerViewController: UIViewController {
         if self.audioPlayerManager.isPlaying {
             self.audioPlayerManager.stop()
         }
-        self.audioPlayerManager.startPlayBack(forSongAtIndex: songIndex)
+        
+        self.audioPlayerManager.startPlayBack(forSongAtIndex: songIndex, withCompletionHandler: { playbackStatusFlag in
+            if !playbackStatusFlag {
+                self.showPlaybackError()
+            }
+        })
     }
     
     private func applyCustomBackgroundColor() {
@@ -101,7 +110,11 @@ class VASongPlayerViewController: UIViewController {
             
             let selfType = type(of: self)
             if !self.audioPlayerManager.isPlaying {
-                self.audioPlayerManager.startPlayBack()
+                self.audioPlayerManager.startPlayBack(withCompletionHandler: { playbackStatus in
+                    if !playbackStatus {
+                        self.showPlaybackError()
+                    }
+                })
                 self.playPauseSongButton.imageName = selfType.pauseImageName
             } else {
                 self.audioPlayerManager.pause()
@@ -110,31 +123,41 @@ class VASongPlayerViewController: UIViewController {
         }
         
         self.previousSongButton.buttonActionHandler = {
-            self.audioPlayerManager.previousTrack(withCompletionHandler: { songTitle, thumnailImage in
+            self.audioPlayerManager.previousTrack(withCompletionHandler: { songTitle, thumnailImage, playbackStatus in
                 let selfType = type(of: self)
                 self.songTitleLabel.text = songTitle
                 self.thumbnailImageView.image = thumnailImage
                 self.playPauseSongButton.imageName = selfType.pauseImageName
+                
+                if !playbackStatus {
+                    self.showPlaybackError()
+                }
             })
         }
         
         self.nextSongButton.buttonActionHandler = {
-            self.audioPlayerManager.nextTrack(withCompletionHandler: { songTitle, thumnailImage in
+            self.audioPlayerManager.nextTrack(withCompletionHandler: { songTitle, thumnailImage, playbackStatus in
                 let selfType = type(of: self)
                 self.songTitleLabel.text = songTitle
                 self.thumbnailImageView.image = thumnailImage
                 self.playPauseSongButton.imageName = selfType.pauseImageName
+                
+                if !playbackStatus {
+                    self.showPlaybackError()
+                }
             })
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
     
     @IBAction func dismissPlayerController(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         self.audioPlayerManager.stop()
+    }
+    
+    private func showPlaybackError() {
+        let alert = UIAlertController(title: "Alert", message: "Something went wrong", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

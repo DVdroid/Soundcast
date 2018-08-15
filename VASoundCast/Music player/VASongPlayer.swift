@@ -28,13 +28,15 @@ class VASongPlayer: NSObject {
         return self.player?.isPlaying ?? false
     }
     
-    func setupPlayer(withUrl url: URL) {
+    func setupPlayer(withUrl url: URL, withCompletionHandler handler:(Bool)->()) {
         do {
             self.player = try AVAudioPlayer(contentsOf: url, fileTypeHint: "mp3")
             self.player?.delegate = self
             self.player?.prepareToPlay()
             self.play()
+            handler(true)
         } catch {
+            handler(false)
             print(error)
         }
     }

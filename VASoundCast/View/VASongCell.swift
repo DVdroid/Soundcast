@@ -37,7 +37,9 @@ class VASongCell: UITableViewCell {
         self.playPauseSongButton.imageName = imageName
     }
     
-    func updateSongThumNail(withImage image:UIImage) {
-        self.songThumbNailImageView.image = image
+    func updateSongThumNail(withImage image:UIImage?) {
+        if let thumbnailImage = image {
+            self.songThumbNailImageView.image = thumbnailImage
+        }
     }
 }
